@@ -10,16 +10,16 @@ podTemplate(label: 'mypod', containers: [
     node('mypod') {
         stage('Check running containers') {
             container('docker') {
-                // example to show you can run docker commands when you mount the socket
-                sh 'hostname'
-                sh 'hostname -i'
-                sh 'docker ps'
+                sh 'docker --version'
             }
         }
-        
+        stage('Pull source') {
+          checkout scm // pull the git repo of the Jenkinsfile
+        }
         stage('Check workspace') {
             container('docker') {
                 sh 'ls -ahl'
+                sh 'ls -ahl ${WORKSPACE}'
             }
         }
     }
