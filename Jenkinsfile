@@ -16,6 +16,7 @@ podTemplate(label: 'mypod', containers: [
         }
         stage('Test') {
             container('python') {
+                sh 'pip install pytest'
                 sh 'pytest my_test.py'
             }
         }
